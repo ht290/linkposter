@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>Improbanews</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+<body>
+
+<div ng-controller="PostCtrl">
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Post Link</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="user">User</label>
+                        <input ng-model="post.user" type="text" class="form-control" id="user" placeholder="Barry">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input ng-model="post.title" type="text" class="form-control" id="title" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="link">Link</label>
+                        <input ng-model="post.link" type="text" class="form-control" id="link" placeholder="Link">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button ng-click="submitPost()" type="button" class="btn btn-primary" id="submit" data-dismiss="modal">Post</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-8"><h1>Improbanews</h1></div>
+        <div class="col-xs-4"><h1><a data-toggle="modal" href="#myModal" class="btn btn-primary">Post Link</a></h1></div>
+
+    </div>
+
+    <!-- Button trigger modal -->
+
+    <div ng-repeat="post in posts">
+    <div class="post row">
+        <div class="col-xs-1"><h1>{{$index + 1}}</h1></div>
+        <div class="col-xs-8"><h3>{{post.title}}</h3>
+            <a href="{{post.link}}">{{post.link}}</a>
+            <small>Posted by {{post.user}} at {{post.timestamp}}</small></div>
+
+    </div>
+    <hr/>
+    </div>
+</div>
+
+<script src="//code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
