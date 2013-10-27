@@ -55,9 +55,10 @@
     <div class="post row">
         <div class="col-xs-1"><h1>{{$index + 1}}</h1></div>
         <div class="col-xs-8"><h3>{{post.title}}</h3>
-            <a href="{{post.link}}">{{post.link}}</a>
-            <small>Posted by {{post.user}} at {{post.timestamp}}</small></div>
-
+            <a href="{{post.link}}"  target="_blank">{{post.link}}</a>
+            <small>Posted by {{post.user}} at {{post.timeString}}</small>
+            <a ng-click="upvote(post)">Upvote</a>
+        </div>
     </div>
     <hr/>
     </div>
