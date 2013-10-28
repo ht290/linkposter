@@ -4,29 +4,19 @@ function PostCtrl($scope) {
     var firstTime = true;
     $scope.posts=[]
 
-    remoteLinks.on('child_added', function(childItem) {
+    remoteLinks.limit(100).on('child_added', function(childItem) {
         var post = childItem.val();
         post.ref = childItem.ref() + "";
 
         $scope.posts.push(post);    
-        sortPosts();    
-        $scope.$digest();
+		$scope.$digest();
     });
 
-    var sortPosts = function() {
-        $scope.posts.sort(function(postA, postB) {
-            // post priority = upvote - (age in days)
-            var postAgeA = new Date(postA.timestamp).getDay();
-            var postAgeB = new Date(postB.timestamp).getDay();
-            var postPriorityA = postA.upvote - postAgeA;
-            var postPriorityB = postB.upvote - postAgeB;
-            var result = postPriorityB - postPriorityA;
-            if (result == 0) {
-                return postB.timestamp - postA.timestamp;
-            }
-            return result;
-        });
-    }
+    $scope.postPriority = function(postA) {
+		// post priority = upvote - (age * decayRate)
+		var postAgeA = (new Date().getTime() - postA.timestamp) / 86400000;
+		return postA.upvote - postAgeA * 2;   
+	}
 
     $scope.submitPost = function() {
         var date = new Date();
